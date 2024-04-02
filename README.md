@@ -7,6 +7,7 @@ Or, in your Home Assistant, navigate to _Configuration_ > _Add-ons, Backups & Su
 ## Add-ons provided by this repository
 - [Bitwarden](bitwarden/README.md)
 - [Frigate](frigate/README.md)
+- [Nextcloud](nextcloud/README.md)
 - [OpenSpeedTest](openspeedtest/README.md)
 - [Overseerr](overseerr/README.md)
 - [Plex](plex/README.md)
