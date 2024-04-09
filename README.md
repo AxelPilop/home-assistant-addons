@@ -5,13 +5,5 @@
 Or, in your Home Assistant, navigate to _Configuration_ > _Add-ons, Backups & Supervisor_ > _Add-on Store_ > _..._ > _Repositories_ and add `https://github.com/AxelPilop/home-assistant-addons` to the list.
 
 ## Add-ons provided by this repository
-- [Bitwarden](bitwarden/README.md)
 - [Frigate](frigate/README.md)
-- [Nextcloud](nextcloud/README.md)
 - [OpenSpeedTest](openspeedtest/README.md)
-- [Overseerr](overseerr/README.md)
-- [Plex](plex/README.md)
-- [Prowlarr](prowlarr/README.md)
-- [NginxProxyManager](proxy-manager/README.md)
-- [Radarr](radarr/README.md)
-- [Sonarr](sonarr/README.md)
