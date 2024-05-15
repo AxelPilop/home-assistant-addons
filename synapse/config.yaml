@@ -1,0 +1,17 @@
+name: Synapse Matrix
+version: latest
+slug: synapse_matrix
+description: A Matrix homeserver implementation developed by the Matrix.org team
+arch:
+  - armv7
+  - amd64
+  - i386
+image: matrixdotorg/synapse:latest
+init: false
+ports:
+  8448/tcp: 8448
+ports_description:
+  8448/tcp: Matrix homeserver
+url: https://hub.docker.com/r/matrixdotorg/synapse
+webui: http://[HOST]:[PORT:8448]
+host_network: false
