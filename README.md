@@ -7,3 +7,4 @@ Or, in your Home Assistant, navigate to _Configuration_ > _Add-ons, Backups & Su
 ## Add-ons provided by this repository
 - [Frigate](frigate/README.md)
 - [OpenSpeedTest](openspeedtest/README.md)
+- [Synapse](synapse/README.md)
