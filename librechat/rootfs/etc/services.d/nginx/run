@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Service Nginx pour LibreChat
+# ==============================================================================
+
+bashio::log.info "Démarrage de Nginx..."
+
+# Attendre que LibreChat soit prêt
+while ! curl -sf http://127.0.0.1:3080/health > /dev/null 2>&1; do
+    sleep 2
+done
+
+bashio::log.info "LibreChat est prêt, démarrage de Nginx..."
+
+exec nginx -g "daemon off;" 

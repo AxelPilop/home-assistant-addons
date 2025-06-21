@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Service MongoDB finish pour LibreChat
+# ==============================================================================
+
+bashio::log.info "Arrêt de MongoDB..."
+
+# Graceful shutdown de MongoDB
+if pidof mongod > /dev/null; then
+    mongosh --eval "db.adminCommand('shutdown')" localhost:27017/admin --quiet || true
+    sleep 2
+fi
+
+# Force kill si nécessaire
+if pidof mongod > /dev/null; then
+    killall mongod
+fi
+
+bashio::log.info "MongoDB arrêté" 

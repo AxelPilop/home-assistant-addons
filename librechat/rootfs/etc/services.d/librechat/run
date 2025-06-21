@@ -1,0 +1,73 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Service LibreChat
+# ==============================================================================
+
+bashio::log.info "Démarrage de LibreChat..."
+
+# Attendre que MongoDB soit prêt
+bashio::log.info "Attente de MongoDB..."
+while ! mongosh --eval "db.runCommand('ping').ok" localhost:27017/test --quiet; do
+  sleep 2
+done
+bashio::log.info "MongoDB est prêt !"
+
+# Configuration des variables d'environnement
+export NODE_ENV="production"
+export PORT="3080"
+export HOST="0.0.0.0"
+
+# Configuration MongoDB
+MONGODB_URL=$(bashio::config 'mongodb_url' 'mongodb://127.0.0.1:27017/LibreChat')
+export MONGO_URI="${MONGODB_URL}"
+
+# Configuration JWT
+JWT_SECRET=$(bashio::config 'jwt_secret')
+if bashio::var.is_empty "${JWT_SECRET}"; then
+    JWT_SECRET=$(openssl rand -hex 32)
+    bashio::log.info "JWT secret généré automatiquement"
+fi
+export JWT_SECRET="${JWT_SECRET}"
+
+# Configuration des clés API
+if bashio::config.has_value 'openai_api_key'; then
+    export OPENAI_API_KEY=$(bashio::config 'openai_api_key')
+fi
+
+if bashio::config.has_value 'anthropic_api_key'; then
+    export ANTHROPIC_API_KEY=$(bashio::config 'anthropic_api_key')
+fi
+
+if bashio::config.has_value 'google_api_key'; then
+    export GOOGLE_API_KEY=$(bashio::config 'google_api_key')
+fi
+
+# Configuration du logging
+if bashio::config.true 'debug_logging'; then
+    export DEBUG_LOGGING="true"
+    export DEBUG_CONSOLE="true"
+fi
+
+# Configuration des répertoires
+export UPLOADS_PATH="/share/librechat/uploads"
+export CONFIG_PATH="/share/librechat"
+
+# Création des répertoires nécessaires
+mkdir -p /share/librechat/uploads
+mkdir -p /share/librechat/logs
+
+# Copie de la configuration par défaut si elle n'existe pas
+if [[ ! -f "/share/librechat/librechat.yaml" ]]; then
+    cp /app/librechat.example.yaml /share/librechat/librechat.yaml 2>/dev/null || true
+fi
+
+# Lien vers la configuration personnalisée
+if [[ -f "/share/librechat/librechat.yaml" ]]; then
+    ln -sf /share/librechat/librechat.yaml /app/librechat.yaml
+fi
+
+# Démarrage de LibreChat
+cd /app
+bashio::log.info "Lancement de LibreChat sur le port 3080..."
+
+exec npm start 

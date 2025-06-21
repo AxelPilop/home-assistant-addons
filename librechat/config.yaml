@@ -1,61 +1,42 @@
+---
 name: LibreChat
-version: v0.7.7
+version: "1.0.0"
 slug: librechat
-description: Clone amélioré de ChatGPT avec support multi-modèles IA (OpenAI, Anthropic, Google, etc.)
+description: Interface de chat IA avec support multi-modèles - LibreChat
+url: https://github.com/axel-vair/home-assistant-addons/tree/main/librechat
 arch:
+  - armhf
   - armv7
   - aarch64
   - amd64
-image: ghcr.io/danny-avila/librechat:latest
+  - i386
 init: false
+privileged:
+  - SYS_ADMIN
+map:
+  - "share:rw"
 ports:
   3080/tcp: 3080
 ports_description:
-  3080/tcp: Interface Web LibreChat
-environment:
-  HOST: "0.0.0.0"
-  PORT: "3080"
-  MONGO_URI: "mongodb://mongo:27017/LibreChat"
-  DOMAIN_CLIENT: "http://localhost:3080"
-  DOMAIN_SERVER: "http://localhost:3080"
-services:
-  - mongodb
-map:
-  - config:rw
-  - share:rw
+  3080/tcp: Interface web LibreChat
+webui: http://[HOST]:[PORT:3080]
 options:
-  mongo_initdb_root_username: librechat
-  mongo_initdb_root_password: password
+  mongodb_url: "mongodb://localhost:27017/LibreChat"
+  jwt_secret: ""
+  openai_api_key: ""
+  anthropic_api_key: ""
+  google_api_key: ""
   debug_logging: false
-  check_balance: false
-  jwt_secret: !secret librechat_jwt_secret
-  jwt_refresh_secret: !secret librechat_jwt_refresh_secret
-  creds_key: !secret librechat_creds_key
-  creds_iv: !secret librechat_creds_iv
 schema:
-  mongo_initdb_root_username:
-    type: str
-    required: false
-  mongo_initdb_root_password:
-    type: password
-    required: false
-  debug_logging:
-    type: bool
-    required: false
-  check_balance:
-    type: bool
-    required: false
-  jwt_secret:
-    type: password
-    required: false
-  jwt_refresh_secret:
-    type: password
-    required: false
-  creds_key:
-    type: password
-    required: false
-  creds_iv:
-    type: password
-    required: false
-url: https://github.com/danny-avila/LibreChat
-webui: http://[HOST]:[PORT:3080] 
+  mongodb_url: "str"
+  jwt_secret: "str?"
+  openai_api_key: "str?"
+  anthropic_api_key: "str?"
+  google_api_key: "str?"
+  debug_logging: bool
+image: ghcr.io/axel-vair/addon-librechat-{arch}
+startup: services
+services:
+  - mysql:want
+  - mqtt:want
+backup: hot 

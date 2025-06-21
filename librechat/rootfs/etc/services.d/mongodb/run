@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Service MongoDB pour LibreChat
+# ==============================================================================
+
+bashio::log.info "Démarrage de MongoDB..."
+
+# Création des répertoires nécessaires
+mkdir -p /data/db
+chown -R mongodb:mongodb /data/db
+
+# Démarrage de MongoDB
+exec s6-setuidgid mongodb mongod \
+    --dbpath /data/db \
+    --bind_ip 127.0.0.1 \
+    --port 27017 \
+    --logpath /var/log/mongodb/mongodb.log \
+    --logappend \
+    --quiet 

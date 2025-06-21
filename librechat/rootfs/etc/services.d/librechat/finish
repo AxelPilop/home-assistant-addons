@@ -1,13 +1,19 @@
 #!/usr/bin/with-contenv bashio
-
 # ==============================================================================
-# Home Assistant Add-on: LibreChat
-# Handles shutdown gracefully
+# Service LibreChat finish
 # ==============================================================================
 
 bashio::log.info "Arrêt de LibreChat..."
 
-# Attendre que les connexions se ferment proprement
-sleep 5
+# Graceful shutdown de Node.js
+if pidof node > /dev/null; then
+    pkill -TERM node
+    sleep 5
+fi
+
+# Force kill si nécessaire
+if pidof node > /dev/null; then
+    pkill -KILL node
+fi
 
 bashio::log.info "LibreChat arrêté" 

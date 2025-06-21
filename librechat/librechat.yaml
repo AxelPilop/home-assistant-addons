@@ -1,127 +1,74 @@
 # Configuration LibreChat pour Home Assistant
-# Placez ce fichier dans le dossier de configuration de votre module
-# Documentation: https://librechat.ai/docs/configuration
+# Ce fichier sera copié dans /share/librechat/ au premier démarrage
 
-version: 1.0.5
+version: 1.0.9
+
+# Cache et performance
 cache: true
+fileStrategy: "local"
 
-# Configuration des endpoints IA
-endpoints:
-  # OpenAI Configuration
-  openAI:
-    apiKey: "${OPENAI_API_KEY}"
-    models:
-      default: ["gpt-4o", "gpt-4", "gpt-3.5-turbo"]
-      fetch: false
-
-  # Anthropic (Claude) Configuration  
-  anthropic:
-    apiKey: "${ANTHROPIC_API_KEY}"
-    models: ["claude-3-5-sonnet-20241022", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
-
-  # Google (Gemini) Configuration
-  google:
-    apiKey: "${GOOGLE_API_KEY}"
-    models: ["gemini-pro", "gemini-pro-vision"]
-
-  # Azure OpenAI Configuration
-  azureOpenAI:
-    apiKey: "${AZURE_OPENAI_API_KEY}"
-    instanceName: "${AZURE_OPENAI_INSTANCE_NAME}"
-    apiVersion: "2024-02-15-preview"
-    deploymentName: "${AZURE_OPENAI_DEPLOYMENT_NAME}"
-    models:
-      default: ["gpt-4", "gpt-35-turbo"]
-
-  # Endpoints personnalisés (exemple Ollama local)
-  custom:
-    - name: "Ollama Local"
-      apiKey: "ollama"
-      baseURL: "http://ollama:11434/v1"
-      models:
-        default: ["llama3:8b", "mistral:7b", "codellama:13b"]
-        fetch: true
-      titleConvo: true
-      titleModel: "llama3:8b"
-      summarize: false
-      summaryModel: "llama3:8b"
-      forcePrompt: false
-      modelDisplayLabel: "Ollama"
-
-# Configuration de l'interface utilisateur
+# Configuration de l'interface
 interface:
-  # Titre personnalisé
-  title: "LibreChat - Home Assistant"
-  
-  # Configuration de la confidentialité
   privacyPolicy:
-    externalUrl: "https://librechat.ai/privacy-policy"
+    externalUrl: ''
     openNewTab: true
-  
-  # Configuration des termes d'utilisation
   termsOfService:
-    externalUrl: "https://librechat.ai/tos"
+    externalUrl: ''
     openNewTab: true
 
-# Configuration de l'enregistrement des utilisateurs
+# Configuration d'inscription (désactivée par défaut)
 registration:
-  # Inscription sociale (nécessite configuration OAuth)
-  socialLogins: ["google", "github", "discord"]
-  
-  # Paramètres d'inscription
-  allowedDomains: ["gmail.com", "outlook.com"] # Optionnel: restreindre les domaines
-  
-# Configuration des fichiers et uploads
+  socialLogins: []
+  allowedDomains: []
+
+# Configuration des fichiers
 fileConfig:
   endpoints:
     openAI:
-      fileLimit: 5
-      fileSizeLimit: 10  # MB
-      totalSizeLimit: 50  # MB
+      fileLimit: 20
+      fileSizeLimit: 100  # MB
+      totalSizeLimit: 1000  # MB
       supportedMimeTypes:
-        - "image/png"
-        - "image/jpeg" 
-        - "image/gif"
-        - "image/webp"
-        - "text/plain"
+        - "image/.*"
+        - "text/.*"
         - "application/pdf"
-    
-    anthropic:
-      fileLimit: 5
-      fileSizeLimit: 10
-      totalSizeLimit: 25
-      supportedMimeTypes:
-        - "image/png"
-        - "image/jpeg"
-        - "image/gif"
-        - "image/webp"
-        - "text/plain"
+        - "application/msword"
+        - "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 
-# Configuration des modèles de chat
-modelSpecs:
-  list:
-    - name: "gpt-4o"
-      maxTokens: 128000
-      contextWindow: 128000
-      
-    - name: "gpt-4"
-      maxTokens: 8192
-      contextWindow: 8192
-      
-    - name: "claude-3-5-sonnet-20241022"
-      maxTokens: 8192
-      contextWindow: 200000
+# Configuration des endpoints personnalisés
+endpoints:
+  # Exemple d'endpoint local
+  custom:
+    - name: "Modèle Local"
+      apiKey: "sk-fake-key-pour-local"
+      baseURL: "http://localhost:11434/v1"
+      models:
+        default: ["llama2", "mistral"]
+        fetch: true
+      titleConvo: true
+      titleModel: "llama2"
+      summarize: false
+      summaryModel: "llama2"
+      forcePrompt: false
+      modelDisplayLabel: "Ollama Local"
+      iconURL: "https://ollama.ai/public/ollama.png"
 
-# Configuration des rateLimits (optionnel)
-rateLimits:
-  fileUploads:
-    ipMax: 100
-    ipWindowInMinutes: 60
-    userMax: 50
-    userWindowInMinutes: 60
-  
-  conversationsImport:
-    ipMax: 100
-    ipWindowInMinutes: 60
-    userMax: 50
-    userWindowInMinutes: 60 
+# Configuration de la modération
+moderation:
+  enabled: false
+
+# Configuration de la mémoire
+memory:
+  enabled: true
+
+# Configuration de la recherche
+search:
+  enabled: true
+
+# Configuration des agents
+agents:
+  disableBuilder: false
+
+# Configuration MCP (Model Context Protocol)
+mcp:
+  enabled: false 

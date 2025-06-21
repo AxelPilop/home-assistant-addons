@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Service Nginx finish pour LibreChat
+# ==============================================================================
+
+bashio::log.info "Arrêt de Nginx..."
+
+# Graceful shutdown de Nginx
+if pidof nginx > /dev/null; then
+    nginx -s quit
+    sleep 2
+fi
+
+# Force kill si nécessaire
+if pidof nginx > /dev/null; then
+    killall nginx
+fi
+
+bashio::log.info "Nginx arrêté" 
