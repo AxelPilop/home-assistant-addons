@@ -6,6 +6,8 @@
 
 LibreChat est une interface de chat IA moderne et complète qui prend en charge plusieurs modèles d'IA, notamment OpenAI, Anthropic, Google, et bien d'autres. Cette addon vous permet d'exécuter LibreChat directement dans votre environnement Home Assistant.
 
+**Version simplifiée** basée sur l'image Docker officielle de LibreChat pour une installation rapide et fiable.
+
 ## Fonctionnalités
 
 - 🤖 Support multi-modèles (OpenAI, Anthropic, Google, etc.)
@@ -18,6 +20,8 @@ LibreChat est une interface de chat IA moderne et complète qui prend en charge 
 - 🧠 Mémoire de conversation
 - 🎨 Génération d'images
 - 📊 Code Interpreter
+- ⚡ Installation rapide basée sur l'image officielle
+- 🛡️ MongoDB intégré ou externe
 
 ## Installation
 
@@ -31,7 +35,7 @@ LibreChat est une interface de chat IA moderne et complète qui prend en charge 
 
 ### Options de base
 
-- **mongodb_url**: URL de connexion à MongoDB (défaut: mongodb://localhost:27017/LibreChat)
+- **mongodb_url**: URL de connexion à MongoDB externe (optionnel, utilise MongoDB intégré si vide)
 - **jwt_secret**: Secret JWT pour l'authentification (généré automatiquement si vide)
 - **openai_api_key**: Clé API OpenAI (optionnel)
 - **anthropic_api_key**: Clé API Anthropic (optionnel) 
@@ -41,6 +45,14 @@ LibreChat est une interface de chat IA moderne et complète qui prend en charge 
 ### Configuration avancée
 
 Pour une configuration avancée, vous pouvez créer un fichier `librechat.yaml` dans le dossier `/share/librechat/` de votre Home Assistant.
+
+## Architecture
+
+Cette version utilise :
+- **Image officielle** LibreChat de GitHub Container Registry
+- **MongoDB intégré** dans l'image (ou externe configurable)
+- **Configuration simplifiée** sans services multiples
+- **Host networking** pour éviter les conflits de ports
 
 ## Support
 

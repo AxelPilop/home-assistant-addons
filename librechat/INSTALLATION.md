@@ -23,14 +23,14 @@
 3. Cliquez sur **INSTALLER**
 4. Attendez la fin du téléchargement et de la construction
 
-⚠️ **Important** : L'addon sera construit localement, cela peut prendre 10-15 minutes
+✅ **Optimisé** : L'addon utilise l'image Docker officielle de LibreChat, installation rapide !
 
 ### 3. Configuration de base
 
 Avant de démarrer, configurez au minimum :
 
 ```yaml
-mongodb_url: "mongodb://localhost:27017/LibreChat"
+mongodb_url: ""  # Optionnel, utilise MongoDB intégré si vide
 jwt_secret: ""  # Laissez vide pour génération automatique
 openai_api_key: "sk-votre-clé-ici"  # Optionnel
 debug_logging: false
@@ -49,7 +49,7 @@ debug_logging: false
 
 **Symptôme** : `Can't install ghcr.io/axel-vair/addon-librechat-amd64:1.0.0`
 
-**Solution** : Cette erreur est maintenant corrigée. L'addon utilise un build local au lieu d'une image pré-construite.
+**Solution** : Cette erreur est maintenant corrigée. L'addon utilise l'image Docker officielle de LibreChat.
 
 ### L'addon ne démarre pas
 

@@ -1,75 +1,70 @@
 #!/usr/bin/with-contenv bashio
+
 # ==============================================================================
-# Service LibreChat
+# Script de démarrage pour LibreChat
 # ==============================================================================
+
+set -e
 
 bashio::log.info "Démarrage de LibreChat..."
-
-# Attendre que MongoDB soit prêt
-bashio::log.info "Attente de MongoDB..."
-while ! mongosh --eval "db.runCommand('ping').ok" localhost:27017/test --quiet; do
-  sleep 2
-done
-bashio::log.info "MongoDB est prêt !"
 
 # Configuration des variables d'environnement
 export NODE_ENV="production"
 export PORT="3080"
 export HOST="0.0.0.0"
-export DOMAIN_CLIENT="http://localhost:3080"
-export DOMAIN_SERVER="http://localhost:3080"
 
 # Configuration MongoDB
-MONGODB_URL=$(bashio::config 'mongodb_url' 'mongodb://127.0.0.1:27017/LibreChat')
-export MONGO_URI="${MONGODB_URL}"
+if bashio::config.has_value 'mongodb_url'; then
+    export MONGO_URI=$(bashio::config 'mongodb_url')
+    bashio::log.info "Utilisation de MongoDB externe: ${MONGO_URI}"
+else
+    # Utilisation de MongoDB intégré dans l'image LibreChat
+    export MONGO_URI="mongodb://127.0.0.1:27017/LibreChat"
+    bashio::log.info "Utilisation de MongoDB intégré"
+fi
 
 # Configuration JWT
-JWT_SECRET=$(bashio::config 'jwt_secret')
-if bashio::var.is_empty "${JWT_SECRET}"; then
-    JWT_SECRET=$(openssl rand -hex 32)
+if bashio::config.has_value 'jwt_secret'; then
+    export JWT_SECRET=$(bashio::config 'jwt_secret')
+else
+    export JWT_SECRET=$(openssl rand -hex 32)
     bashio::log.info "JWT secret généré automatiquement"
 fi
-export JWT_SECRET="${JWT_SECRET}"
 
 # Configuration des clés API
 if bashio::config.has_value 'openai_api_key'; then
     export OPENAI_API_KEY=$(bashio::config 'openai_api_key')
+    bashio::log.info "Clé OpenAI configurée"
 fi
 
 if bashio::config.has_value 'anthropic_api_key'; then
     export ANTHROPIC_API_KEY=$(bashio::config 'anthropic_api_key')
+    bashio::log.info "Clé Anthropic configurée"
 fi
 
 if bashio::config.has_value 'google_api_key'; then
     export GOOGLE_API_KEY=$(bashio::config 'google_api_key')
+    bashio::log.info "Clé Google configurée"
 fi
 
 # Configuration du logging
 if bashio::config.true 'debug_logging'; then
     export DEBUG_LOGGING="true"
     export DEBUG_CONSOLE="true"
+    bashio::log.info "Logs de débogage activés"
 fi
-
-# Configuration des répertoires
-export UPLOADS_PATH="/share/librechat/uploads"
-export CONFIG_PATH="/share/librechat"
 
 # Création des répertoires nécessaires
-mkdir -p /share/librechat/uploads
-mkdir -p /share/librechat/logs
+mkdir -p /data/uploads
+mkdir -p /data/logs
+mkdir -p /data/images
 
 # Copie de la configuration par défaut si elle n'existe pas
-if [[ ! -f "/share/librechat/librechat.yaml" ]]; then
-    cp /app/librechat.example.yaml /share/librechat/librechat.yaml 2>/dev/null || true
-fi
-
-# Lien vers la configuration personnalisée
 if [[ -f "/share/librechat/librechat.yaml" ]]; then
-    ln -sf /share/librechat/librechat.yaml /app/librechat.yaml
+    cp /share/librechat/librechat.yaml /data/librechat.yaml
+    bashio::log.info "Configuration personnalisée trouvée"
 fi
 
 # Démarrage de LibreChat
-cd /app
 bashio::log.info "Lancement de LibreChat sur le port 3080..."
-
 exec npm start 

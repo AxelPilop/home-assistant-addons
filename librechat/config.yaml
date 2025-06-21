@@ -5,14 +5,10 @@ slug: librechat
 description: Interface de chat IA avec support multi-modèles - LibreChat
 url: https://github.com/axel-vair/home-assistant-addons/tree/main/librechat
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
-  - i386
 init: false
-privileged:
-  - SYS_ADMIN
+host_network: true
 map:
   - "share:rw"
 ports:
@@ -21,21 +17,18 @@ ports_description:
   3080/tcp: Interface web LibreChat
 webui: http://[HOST]:[PORT:3080]
 options:
-  mongodb_url: "mongodb://localhost:27017/LibreChat"
+  mongodb_url: ""
   jwt_secret: ""
   openai_api_key: ""
   anthropic_api_key: ""
   google_api_key: ""
   debug_logging: false
 schema:
-  mongodb_url: "str"
+  mongodb_url: "str?"
   jwt_secret: "str?"
   openai_api_key: "str?"
   anthropic_api_key: "str?"
   google_api_key: "str?"
   debug_logging: bool
-startup: services
-services:
-  - mysql:want
-  - mqtt:want
+startup: application
 backup: hot 

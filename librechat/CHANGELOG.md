@@ -26,16 +26,16 @@ et ce projet adhère au [Versioning Sémantique](https://semver.org/lang/fr/).
 - Interface web moderne et responsive  
 - Configuration flexible via l'interface Home Assistant
 - Support MongoDB intégré
-- Proxy nginx pour les performances
 - Authentification utilisateur intégrée
 - Support des uploads de fichiers
 - Configuration avancée via librechat.yaml
 - Logs de débogage configurables
 - Sauvegarde automatique des conversations
-- Support WebSocket pour les interactions en temps réel
 - Génération automatique des secrets JWT
 - Documentation complète en français
-- Support multi-architecture (armhf, armv7, aarch64, amd64, i386)
+- Support multi-architecture (aarch64, amd64)
+- Installation rapide basée sur l'image Docker officielle
+- Approche simplifiée et fiable
 
 ### Fonctionnalités principales
 - **Chat IA** : Interface de chat moderne avec support multi-modèles
