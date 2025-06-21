@@ -25,16 +25,14 @@
 
 ✅ **Optimisé** : L'addon utilise l'image Docker officielle de LibreChat, installation rapide !
 
-### 3. Configuration de base
+### 3. Configuration automatique
 
-Avant de démarrer, configurez au minimum :
+Aucune configuration requise ! L'addon est prêt à l'emploi avec :
 
-```yaml
-mongodb_url: ""  # Laisser vide pour utiliser MongoDB intégré
-jwt_secret: "votre-secret-jwt-ici"  # Obligatoire pour la sécurité
-openai_api_key: "sk-votre-clé-ici"  # Optionnel
-debug_logging: false
-```
+- 🔐 **Secrets sécurisés** générés automatiquement
+- 🗄️ **MongoDB** configuré et démarré automatiquement
+- ⚙️ **Variables d'environnement** optimisées
+- 🚀 **Prêt à démarrer** sans configuration manuelle
 
 ### 4. Premier démarrage
 

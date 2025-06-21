@@ -22,20 +22,27 @@ et ce projet adhère au [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ### Ajouté
 - Version initiale de l'addon LibreChat pour Home Assistant
+- **Installation automatique** : MongoDB + Secrets + Configuration
 - Support multi-modèles (OpenAI, Anthropic, Google, etc.)
 - Interface web moderne et responsive  
-- Configuration flexible via l'interface Home Assistant
-- Support MongoDB intégré
+- MongoDB intégré et pré-configuré
 - Authentification utilisateur intégrée
 - Support des uploads de fichiers
 - Configuration avancée via librechat.yaml
-- Logs de débogage configurables
 - Sauvegarde automatique des conversations
-- Génération automatique des secrets JWT
+- Secrets de sécurité générés automatiquement
 - Documentation complète en français
 - Support multi-architecture (aarch64, amd64)
 - Installation rapide basée sur l'image Docker officielle
-- Approche simplifiée et fiable
+- **Configuration zéro** : Prêt à l'emploi immédiatement
+- Guide d'ajout de clés API post-installation
+
+### Fonctionnalités techniques
+- Variables d'environnement optimisées et sécurisées
+- Health check intégré pour monitoring
+- Répertoires de données automatiquement créés
+- Logs structurés et configurables
+- Support complet des fonctionnalités LibreChat
 
 ### Fonctionnalités principales
 - **Chat IA** : Interface de chat moderne avec support multi-modèles

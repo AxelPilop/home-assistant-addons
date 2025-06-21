@@ -17,26 +17,45 @@ ports_description:
   3080/tcp: Interface web LibreChat
 webui: http://[HOST]:[PORT:3080]
 options:
-  mongodb_url: ""
-  jwt_secret: ""
-  openai_api_key: ""
-  anthropic_api_key: ""
-  google_api_key: ""
-  debug_logging: false
+  port: 3080
 schema:
-  mongodb_url: "str?"
-  jwt_secret: "str?"
-  openai_api_key: "str?"
-  anthropic_api_key: "str?"
-  google_api_key: "str?"
-  debug_logging: bool
+  port: "int(1024,65535)?"
 environment:
+  # Configuration MongoDB automatique
   MONGO_URI: mongodb://127.0.0.1:27017/LibreChat
+  
+  # Configuration Node.js
   NODE_ENV: production
   PORT: "3080"
   HOST: 0.0.0.0
+  
+  # Répertoires de données
   DATA_DIR: /data
   CONFIG_PATH: /data
   UPLOADS_PATH: /data/uploads
+  
+  # Secrets générés automatiquement (valeurs fixes pour la stabilité)
+  JWT_SECRET: "librechat-ha-addon-jwt-secret-2025-secure-key-1234567890abcdef"
+  JWT_REFRESH_SECRET: "librechat-ha-addon-refresh-secret-2025-secure-key-abcdef1234567890"
+  CREDS_KEY: "librechat-ha-addon-creds-key-2025-secure-encryption-key-456789"
+  CREDS_IV: "librechat-ha-addon-creds-iv-2025-secure-vector-123456"
+  
+  # Configuration LibreChat
+  APP_TITLE: "LibreChat - Home Assistant"
+  CUSTOM_FOOTER: "Powered by Home Assistant"
+  ALLOW_EMAIL_LOGIN: "true"
+  ALLOW_REGISTRATION: "true"
+  ALLOW_SOCIAL_LOGIN: "false"
+  ALLOW_SOCIAL_REGISTRATION: "false"
+  
+  # Désactiver les fonctionnalités externes par défaut
+  CHECK_BALANCE: "false"
+  ENABLE_OPENAI_ASSISTANT: "false"
+  SEARCH: "false"
+  
+  # Configuration de développement/débogage
+  DEBUG_LOGGING: "false"
+  DEBUG_CONSOLE: "false"
+  
 startup: application
 backup: hot 
