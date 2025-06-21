@@ -1,0 +1,22 @@
+# Logs
+*.log
+logs/
+
+# Données temporaires
+*.tmp
+*.temp
+
+# Configuration locale
+.env
+.env.local
+
+# Données MongoDB
+data/
+
+# Fichiers de sauvegarde
+*.bak
+*~
+
+# OS
+.DS_Store
+Thumbs.db 

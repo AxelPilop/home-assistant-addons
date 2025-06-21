@@ -1,0 +1,99 @@
+version: 1.0.5
+cache: true
+
+# Interface personnalisée
+interface:
+  privacyPolicy:
+    externalUrl: 'https://librechat.ai/privacy-policy'
+    openNewTab: true
+  termsOfService:
+    externalUrl: 'https://librechat.ai/tos'
+    openNewTab: true
+
+# Configuration de l'inscription
+registration:
+  socialLogins: ['discord', 'facebook', 'github', 'google', 'openid']
+  allowedDomains: []
+
+# Configuration de la parole (Text-to-Speech et Speech-to-Text)
+speech:
+  tts:
+    openai:
+      url: ''
+      apikey: '${OPENAI_API_KEY}'
+      model: 'tts-1'
+      voices: ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer']
+  stt:
+    openai:
+      url: ''
+      apikey: '${OPENAI_API_KEY}'
+      model: 'whisper-1'
+
+# Configuration des fichiers
+fileConfig:
+  endpoints:
+    assistants:
+      fileLimit: 5
+      fileSizeLimit: 10
+      totalSizeLimit: 50
+      supportedMimeTypes:
+        - "image/.*"
+        - "text/.*"
+        - "application/pdf"
+        - "application/msword"
+        - "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    openAI:
+      disabled: false
+      fileLimit: 5
+      fileSizeLimit: 10
+      totalSizeLimit: 50
+      supportedMimeTypes:
+        - "image/.*"
+        - "text/.*"
+        - "application/pdf"
+    anthropic:
+      disabled: false
+      fileLimit: 5
+      fileSizeLimit: 10
+      totalSizeLimit: 50
+      supportedMimeTypes:
+        - "image/.*"
+        - "text/.*"
+        - "application/pdf"
+    google:
+      disabled: false
+      fileLimit: 5
+      fileSizeLimit: 10
+      totalSizeLimit: 50
+      supportedMimeTypes:
+        - "image/.*"
+        - "text/.*"
+        - "application/pdf"
+    default:
+      totalSizeLimit: 20
+      supportedMimeTypes:
+        - "image/.*"
+        - "text/.*"
+  serverFileSizeLimit: 100
+  avatarSizeLimit: 2
+
+# Paramètres de modération
+moderation:
+  enabled: false
+  
+# Configuration des endpoints personnalisés (désactivé par défaut)
+endpoints:
+  # Exemple d'endpoint personnalisé
+  # customEndpoint:
+  #   name: "Mon Endpoint IA"
+  #   apiKey: "${CUSTOM_API_KEY}"
+  #   baseURL: "https://api.example.com/v1"
+  #   models:
+  #     default: ["custom-model-1", "custom-model-2"]
+  #   iconURL: "https://example.com/icon.png"
+  #   titleConvo: true
+  #   titleModel: "custom-model-1"
+  #   summarize: false
+  #   summaryModel: "custom-model-1"
+  #   forcePrompt: false
+  #   modelDisplayLabel: "Mon Modèle IA" 
