@@ -1,99 +1,127 @@
+# Configuration LibreChat pour Home Assistant
+# Placez ce fichier dans le dossier de configuration de votre module
+# Documentation: https://librechat.ai/docs/configuration
+
 version: 1.0.5
 cache: true
 
-# Interface personnalisée
+# Configuration des endpoints IA
+endpoints:
+  # OpenAI Configuration
+  openAI:
+    apiKey: "${OPENAI_API_KEY}"
+    models:
+      default: ["gpt-4o", "gpt-4", "gpt-3.5-turbo"]
+      fetch: false
+
+  # Anthropic (Claude) Configuration  
+  anthropic:
+    apiKey: "${ANTHROPIC_API_KEY}"
+    models: ["claude-3-5-sonnet-20241022", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
+
+  # Google (Gemini) Configuration
+  google:
+    apiKey: "${GOOGLE_API_KEY}"
+    models: ["gemini-pro", "gemini-pro-vision"]
+
+  # Azure OpenAI Configuration
+  azureOpenAI:
+    apiKey: "${AZURE_OPENAI_API_KEY}"
+    instanceName: "${AZURE_OPENAI_INSTANCE_NAME}"
+    apiVersion: "2024-02-15-preview"
+    deploymentName: "${AZURE_OPENAI_DEPLOYMENT_NAME}"
+    models:
+      default: ["gpt-4", "gpt-35-turbo"]
+
+  # Endpoints personnalisés (exemple Ollama local)
+  custom:
+    - name: "Ollama Local"
+      apiKey: "ollama"
+      baseURL: "http://ollama:11434/v1"
+      models:
+        default: ["llama3:8b", "mistral:7b", "codellama:13b"]
+        fetch: true
+      titleConvo: true
+      titleModel: "llama3:8b"
+      summarize: false
+      summaryModel: "llama3:8b"
+      forcePrompt: false
+      modelDisplayLabel: "Ollama"
+
+# Configuration de l'interface utilisateur
 interface:
+  # Titre personnalisé
+  title: "LibreChat - Home Assistant"
+  
+  # Configuration de la confidentialité
   privacyPolicy:
-    externalUrl: 'https://librechat.ai/privacy-policy'
+    externalUrl: "https://librechat.ai/privacy-policy"
     openNewTab: true
+  
+  # Configuration des termes d'utilisation
   termsOfService:
-    externalUrl: 'https://librechat.ai/tos'
+    externalUrl: "https://librechat.ai/tos"
     openNewTab: true
 
-# Configuration de l'inscription
+# Configuration de l'enregistrement des utilisateurs
 registration:
-  socialLogins: ['discord', 'facebook', 'github', 'google', 'openid']
-  allowedDomains: []
-
-# Configuration de la parole (Text-to-Speech et Speech-to-Text)
-speech:
-  tts:
-    openai:
-      url: ''
-      apikey: '${OPENAI_API_KEY}'
-      model: 'tts-1'
-      voices: ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer']
-  stt:
-    openai:
-      url: ''
-      apikey: '${OPENAI_API_KEY}'
-      model: 'whisper-1'
-
-# Configuration des fichiers
+  # Inscription sociale (nécessite configuration OAuth)
+  socialLogins: ["google", "github", "discord"]
+  
+  # Paramètres d'inscription
+  allowedDomains: ["gmail.com", "outlook.com"] # Optionnel: restreindre les domaines
+  
+# Configuration des fichiers et uploads
 fileConfig:
   endpoints:
-    assistants:
-      fileLimit: 5
-      fileSizeLimit: 10
-      totalSizeLimit: 50
-      supportedMimeTypes:
-        - "image/.*"
-        - "text/.*"
-        - "application/pdf"
-        - "application/msword"
-        - "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     openAI:
-      disabled: false
       fileLimit: 5
-      fileSizeLimit: 10
-      totalSizeLimit: 50
+      fileSizeLimit: 10  # MB
+      totalSizeLimit: 50  # MB
       supportedMimeTypes:
-        - "image/.*"
-        - "text/.*"
+        - "image/png"
+        - "image/jpeg" 
+        - "image/gif"
+        - "image/webp"
+        - "text/plain"
         - "application/pdf"
+    
     anthropic:
-      disabled: false
       fileLimit: 5
       fileSizeLimit: 10
-      totalSizeLimit: 50
+      totalSizeLimit: 25
       supportedMimeTypes:
-        - "image/.*"
-        - "text/.*"
-        - "application/pdf"
-    google:
-      disabled: false
-      fileLimit: 5
-      fileSizeLimit: 10
-      totalSizeLimit: 50
-      supportedMimeTypes:
-        - "image/.*"
-        - "text/.*"
-        - "application/pdf"
-    default:
-      totalSizeLimit: 20
-      supportedMimeTypes:
-        - "image/.*"
-        - "text/.*"
-  serverFileSizeLimit: 100
-  avatarSizeLimit: 2
+        - "image/png"
+        - "image/jpeg"
+        - "image/gif"
+        - "image/webp"
+        - "text/plain"
 
-# Paramètres de modération
-moderation:
-  enabled: false
+# Configuration des modèles de chat
+modelSpecs:
+  list:
+    - name: "gpt-4o"
+      maxTokens: 128000
+      contextWindow: 128000
+      
+    - name: "gpt-4"
+      maxTokens: 8192
+      contextWindow: 8192
+      
+    - name: "claude-3-5-sonnet-20241022"
+      maxTokens: 8192
+      contextWindow: 200000
+
+# Configuration des rateLimits (optionnel)
+rateLimits:
+  fileUploads:
+    ipMax: 100
+    ipWindowInMinutes: 60
+    userMax: 50
+    userWindowInMinutes: 60
   
-# Configuration des endpoints personnalisés (désactivé par défaut)
-endpoints:
-  # Exemple d'endpoint personnalisé
-  # customEndpoint:
-  #   name: "Mon Endpoint IA"
-  #   apiKey: "${CUSTOM_API_KEY}"
-  #   baseURL: "https://api.example.com/v1"
-  #   models:
-  #     default: ["custom-model-1", "custom-model-2"]
-  #   iconURL: "https://example.com/icon.png"
-  #   titleConvo: true
-  #   titleModel: "custom-model-1"
-  #   summarize: false
-  #   summaryModel: "custom-model-1"
-  #   forcePrompt: false
-  #   modelDisplayLabel: "Mon Modèle IA" 
+  conversationsImport:
+    ipMax: 100
+    ipWindowInMinutes: 60
+    userMax: 50
+    userWindowInMinutes: 60 

@@ -1,22 +1,35 @@
+# Secrets et configuration sensible
+.env
+*.key
+*.pem
+secrets.yaml
+
 # Logs
 *.log
 logs/
 
-# Données temporaires
-*.tmp
-*.temp
-
-# Configuration locale
-.env
-.env.local
-
-# Données MongoDB
+# Base de données locale
 data/
+db/
+mongodb/
 
-# Fichiers de sauvegarde
-*.bak
-*~
+# Cache et temporaires
+.cache/
+tmp/
+temp/
 
-# OS
+# Node modules (si utilisé pour dev)
+node_modules/
+
+# Système
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# Backup
+*.backup
+*.bak
+
+# Configuration utilisateur
+config/local/
+uploads/
+images/ 

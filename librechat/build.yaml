@@ -1,10 +1,13 @@
 build_from:
-  aarch64: "ghcr.io/home-assistant/aarch64-base:3.19"
-  amd64: "ghcr.io/home-assistant/amd64-base:3.19"
-labels:
-  org.opencontainers.image.title: "LibreChat"
-  org.opencontainers.image.description: "Clone amélioré de ChatGPT avec support multi-modèles IA"
-  org.opencontainers.image.source: "https://github.com/AxelPilop/home-assistant-addons"
-  org.opencontainers.image.licenses: "MIT"
+  aarch64: ghcr.io/danny-avila/librechat:latest
+  amd64: ghcr.io/danny-avila/librechat:latest
+  armv7: ghcr.io/danny-avila/librechat:latest
 args:
-  LIBRECHAT_VERSION: "main" 
+  LIBRECHAT_VERSION: "v0.7.7"
+labels:
+  org.opencontainers.image.title: "LibreChat Home Assistant Add-on"
+  org.opencontainers.image.description: "Clone amélioré de ChatGPT avec support multi-modèles IA"
+  org.opencontainers.image.source: "https://github.com/danny-avila/LibreChat"
+  org.opencontainers.image.url: "https://librechat.ai"
+  org.opencontainers.image.authors: "Danny Avila, Home Assistant Community"
+  org.opencontainers.image.licenses: "MIT" 

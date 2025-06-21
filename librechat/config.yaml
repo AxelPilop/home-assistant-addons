@@ -1,76 +1,61 @@
 name: LibreChat
-version: 1.0.0
+version: v0.7.7
 slug: librechat
-description: Clone amélioré de ChatGPT avec support multi-modèles IA - Anthropic, OpenAI, Azure, Google, etc.
-url: "https://github.com/danny-avila/LibreChat"
+description: Clone amélioré de ChatGPT avec support multi-modèles IA (OpenAI, Anthropic, Google, etc.)
 arch:
-  - amd64
+  - armv7
   - aarch64
-startup: services
-boot: auto
+  - amd64
+image: ghcr.io/danny-avila/librechat:latest
 init: false
-webui: "http://[HOST]:[PORT:3080]/"
-ingress: true
-ingress_port: 3080
-ingress_entry: "/"
-panel_icon: "mdi:chat"
-panel_title: LibreChat
-panel_admin: false
-homeassistant_api: false
-hassio_api: true
-host_network: false
-privileged: []
-full_access: false
 ports:
   3080/tcp: 3080
 ports_description:
-  3080/tcp: Interface web LibreChat
+  3080/tcp: Interface Web LibreChat
 environment:
   HOST: "0.0.0.0"
   PORT: "3080"
-  MONGO_URI: "mongodb://localhost:27017/LibreChat"
+  MONGO_URI: "mongodb://mongo:27017/LibreChat"
   DOMAIN_CLIENT: "http://localhost:3080"
   DOMAIN_SERVER: "http://localhost:3080"
-  JWT_SECRET: "16f8c0ef4a5d391b26034086c7c95145"
-  JWT_REFRESH_SECRET: "eaa5191f2914e30b9387fd84e254e4ba6fc51b4654968045"
-  CREDS_KEY: "f34be427ebb29de8d88c107a71546019685ed8b241d8f2ed00c3df97ad2566f0"
-  CREDS_IV: "e2341419ec3dd3d19023813dcf6f05e9"
-schema:
-  openai_api_key: password?
-  azure_openai_api_key: password?
-  anthropic_api_key: password?
-  google_api_key: password?
-  debug_logging: bool?
-  debug_openai: bool?
-  debug_plugins: bool?
-  allow_registration: bool?
-  email_service: list(gmail|mailgun|sendgrid|custom)?
-  email_username: str?
-  email_password: password?
-  email_from: str?
-  session_expiry: int(900)?
-  refresh_token_expiry: int(604800)?
-  check_balance: bool?
-  forcePrompt: 
-    title: Forcer les prompts système
-    description: Force l'utilisation des prompts système même quand l'utilisateur en fournit un
-    default: false
+services:
+  - mongodb
+map:
+  - config:rw
+  - share:rw
 options:
-  openai_api_key: ""
-  azure_openai_api_key: ""
-  anthropic_api_key: ""
-  google_api_key: ""
+  mongo_initdb_root_username: librechat
+  mongo_initdb_root_password: password
   debug_logging: false
-  debug_openai: false
-  debug_plugins: false
-  allow_registration: true
-  email_service: ""
-  email_username: ""
-  email_password: ""
-  email_from: ""
-  session_expiry: 900
-  refresh_token_expiry: 604800
   check_balance: false
-  forcePrompt: false
-tmpfs: true
-image: "ghcr.io/axelpilop/{arch}-addon-librechat" 
+  jwt_secret: !secret librechat_jwt_secret
+  jwt_refresh_secret: !secret librechat_jwt_refresh_secret
+  creds_key: !secret librechat_creds_key
+  creds_iv: !secret librechat_creds_iv
+schema:
+  mongo_initdb_root_username:
+    type: str
+    required: false
+  mongo_initdb_root_password:
+    type: password
+    required: false
+  debug_logging:
+    type: bool
+    required: false
+  check_balance:
+    type: bool
+    required: false
+  jwt_secret:
+    type: password
+    required: false
+  jwt_refresh_secret:
+    type: password
+    required: false
+  creds_key:
+    type: password
+    required: false
+  creds_iv:
+    type: password
+    required: false
+url: https://github.com/danny-avila/LibreChat
+webui: http://[HOST]:[PORT:3080] 
