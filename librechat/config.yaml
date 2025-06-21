@@ -34,7 +34,6 @@ schema:
   anthropic_api_key: "str?"
   google_api_key: "str?"
   debug_logging: bool
-image: ghcr.io/axel-vair/addon-librechat-{arch}
 startup: services
 services:
   - mysql:want

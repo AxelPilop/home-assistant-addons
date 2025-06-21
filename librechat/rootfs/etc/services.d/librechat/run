@@ -16,6 +16,8 @@ bashio::log.info "MongoDB est prêt !"
 export NODE_ENV="production"
 export PORT="3080"
 export HOST="0.0.0.0"
+export DOMAIN_CLIENT="http://localhost:3080"
+export DOMAIN_SERVER="http://localhost:3080"
 
 # Configuration MongoDB
 MONGODB_URL=$(bashio::config 'mongodb_url' 'mongodb://127.0.0.1:27017/LibreChat')

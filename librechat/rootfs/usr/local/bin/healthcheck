@@ -10,14 +10,8 @@ if ! mongosh --eval "db.runCommand('ping').ok" localhost:27017/test --quiet > /d
 fi
 
 # Vérification de LibreChat
-if ! curl -sf http://127.0.0.1:3080/health > /dev/null 2>&1; then
+if ! curl -sf http://127.0.0.1:3080/api/health > /dev/null 2>&1; then
     bashio::log.error "LibreChat n'est pas accessible"
-    exit 1
-fi
-
-# Vérification de Nginx
-if ! curl -sf http://127.0.0.1:8099/health > /dev/null 2>&1; then
-    bashio::log.error "Nginx n'est pas accessible"
     exit 1
 fi
 

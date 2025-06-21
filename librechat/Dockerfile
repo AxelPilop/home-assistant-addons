@@ -14,7 +14,6 @@ ENV \
 # Installation des dépendances système
 RUN \
     apk add --no-cache \
-        nginx=1.24.0-r15 \
         nodejs=20.11.1-r0 \
         npm=10.2.5-r0 \
         python3=3.11.9-r0 \
@@ -41,9 +40,6 @@ RUN \
 RUN \
     mkdir -p /data/db && \
     chown -R mongodb:mongodb /data
-
-# Configuration nginx
-COPY rootfs/etc/nginx/ /etc/nginx/
 
 # Copie des scripts et configuration
 COPY rootfs/ /
