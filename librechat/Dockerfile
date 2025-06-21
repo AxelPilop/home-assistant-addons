@@ -7,17 +7,14 @@ LABEL \
   io.hass.type="addon" \
   io.hass.arch="aarch64|amd64"
 
-# Variables d'environnement
+# Variables d'environnement par défaut
 ENV DATA_DIR=/data
 ENV CONFIG_PATH=/data
 ENV UPLOADS_PATH=/data/uploads
+ENV NODE_ENV=production
+ENV PORT=3080
+ENV HOST=0.0.0.0
+ENV MONGO_URI=mongodb://127.0.0.1:27017/LibreChat
 
 # Exposition du port
-EXPOSE 3080
-
-# Copie du script de démarrage
-COPY run.sh /
-RUN chmod a+x /run.sh
-
-# Script de démarrage
-CMD ["/run.sh"] 
+EXPOSE 3080 

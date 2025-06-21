@@ -1,7 +1,5 @@
 # Module complémentaire Home Assistant : LibreChat
 
-![LibreChat Logo](https://raw.githubusercontent.com/axel-vair/home-assistant-addons/main/librechat/logo.png)
-
 ## À propos
 
 LibreChat est une interface de chat IA moderne et complète qui prend en charge plusieurs modèles d'IA, notamment OpenAI, Anthropic, Google, et bien d'autres. Cette addon vous permet d'exécuter LibreChat directement dans votre environnement Home Assistant.
@@ -50,9 +48,10 @@ Pour une configuration avancée, vous pouvez créer un fichier `librechat.yaml` 
 
 Cette version utilise :
 - **Image officielle** LibreChat de GitHub Container Registry
-- **MongoDB intégré** dans l'image (ou externe configurable)
-- **Configuration simplifiée** sans services multiples
+- **MongoDB intégré** dans l'image LibreChat
+- **Configuration via variables d'environnement** Home Assistant
 - **Host networking** pour éviter les conflits de ports
+- **Pas de script personnalisé** - utilise l'image telle quelle
 
 ## Support
 

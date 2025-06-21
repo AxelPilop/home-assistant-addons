@@ -30,8 +30,8 @@
 Avant de démarrer, configurez au minimum :
 
 ```yaml
-mongodb_url: ""  # Optionnel, utilise MongoDB intégré si vide
-jwt_secret: ""  # Laissez vide pour génération automatique
+mongodb_url: ""  # Laisser vide pour utiliser MongoDB intégré
+jwt_secret: "votre-secret-jwt-ici"  # Obligatoire pour la sécurité
 openai_api_key: "sk-votre-clé-ici"  # Optionnel
 debug_logging: false
 ```
