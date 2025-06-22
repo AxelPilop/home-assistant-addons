@@ -1,11 +1,20 @@
 ARG BUILD_FROM
-FROM ghcr.io/danny-avila/librechat:latest
+FROM ${BUILD_FROM}
 
-# Labels pour Home Assistant Supervisor
-LABEL \
-  io.hass.version="1.0.0" \
-  io.hass.type="addon" \
-  io.hass.arch="aarch64|amd64"
+# Installer Node.js, MongoDB, Python (RAG) et nettoyages
+RUN apt-get update && apt-get install -y \
+    nodejs npm mongodb python3 python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
-# Exposition du port
-EXPOSE 3080 
+# Copier le code LibreChat dans /app
+COPY . /app
+WORKDIR /app
+
+# Installer les dépendances Node
+RUN npm install
+
+# Ajouter le script de démarrage
+COPY run.sh /
+RUN chmod a+x /run.sh
+
+CMD [ "/run.sh" ] 

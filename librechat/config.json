@@ -1,0 +1,18 @@
+{
+  "name": "LibreChat",
+  "version": "1.0.0",
+  "slug": "librechat",
+  "description": "Instance LibreChat locale (chat IA open-source)",
+  "arch": ["amd64", "armv7", "aarch64"],
+  "startup": "services",
+  "boot": "auto",
+  "ports": {
+    "3080/tcp": 3080
+  },
+  "ports_description": {
+    "3080/tcp": "Interface Web/API LibreChat"
+  },
+  "webui": "http://[HOST]:[PORT:3080]",
+  "options": {},
+  "schema": {}
+} 

@@ -1,71 +1,31 @@
-# Module complémentaire Home Assistant : LibreChat
+# LibreChat Add-on pour Home Assistant
 
-## À propos
-
-LibreChat est une interface de chat IA moderne et complète qui prend en charge plusieurs modèles d'IA, notamment OpenAI, Anthropic, Google, et bien d'autres. Cette addon vous permet d'exécuter LibreChat directement dans votre environnement Home Assistant.
-
-**Version simplifiée** basée sur l'image Docker officielle de LibreChat pour une installation rapide et fiable.
-
-## Fonctionnalités
-
-- 🤖 Support multi-modèles (OpenAI, Anthropic, Google, etc.)
-- 💬 Interface de chat moderne et intuitive
-- 🔧 Configuration personnalisable
-- 📱 Interface web responsive
-- 🔐 Authentification utilisateur
-- 📁 Support des fichiers et images
-- 🌐 Support de recherche web
-- 🧠 Mémoire de conversation
-- 🎨 Génération d'images
-- 📊 Code Interpreter
-- ⚡ Installation rapide basée sur l'image officielle
-- 🛡️ MongoDB intégré ou externe
+Cette add-on Home Assistant exécute LibreChat localement dans un conteneur dédié, incluant MongoDB pour la persistance des données.
 
 ## Installation
 
-1. Ajoutez ce dépôt à vos sources d'addons Home Assistant
-2. Installez l'addon "LibreChat"
-3. Démarrez l'addon (aucune configuration requise)
-4. Accédez à l'interface via le bouton "OUVRIR L'INTERFACE WEB"
-5. Créez votre premier compte utilisateur
+1. Copiez ce dossier dans `/addons/local/` de votre installation Home Assistant
+2. Dans l'interface Home Assistant, allez dans **Configuration → Add-ons, Backups & Supervisor → Add-on Store**
+3. Cliquez sur **Check for updates** pour faire apparaître la section « Local Add-ons »
+4. Installez l'add-on « LibreChat »
+5. Démarrez l'add-on
 
-## Configuration
+## Accès
 
-### Installation automatique 🚀
+Après le démarrage, l'interface LibreChat est accessible à l'adresse :
+`http://<IP_Host>:3080`
 
-Aucune configuration requise ! L'addon est prêt à l'emploi :
+## Persistance des données
 
-- ✅ **MongoDB** : Automatiquement configuré et démarré
-- ✅ **Secrets** : Générés automatiquement de manière sécurisée
-- ✅ **Base de données** : Créée automatiquement au premier démarrage
-- ✅ **Utilisateurs** : Inscription ouverte pour le premier utilisateur
+L'add-on utilise le répertoire `/data` (persistant à chaque redémarrage) pour stocker :
+- La base de données MongoDB (`/data/db`)
+- Les fichiers uploadés (`/data/uploads`) 
+- Les logs (`/data/logs`)
 
-### Options disponibles
+## Fonctionnalités
 
-- **port**: Port d'écoute (défaut: 3080)
-
-### Configuration avancée
-
-Pour personnaliser LibreChat, vous pouvez :
-1. Créer un fichier `librechat.yaml` dans `/share/librechat/`
-2. Ajouter vos clés API via les variables d'environnement
-3. Modifier les paramètres dans l'interface web
-
-## Architecture
-
-Cette version utilise :
-- **Image officielle** LibreChat de GitHub Container Registry
-- **MongoDB intégré** dans l'image LibreChat
-- **Configuration via variables d'environnement** Home Assistant
-- **Host networking** pour éviter les conflits de ports
-- **Pas de script personnalisé** - utilise l'image telle quelle
-
-## Support
-
-- [Documentation LibreChat](https://www.librechat.ai/docs)
-- [GitHub Issues](https://github.com/axel-vair/home-assistant-addons/issues)
-- [Forum Home Assistant](https://community.home-assistant.io/)
-
-## Licence
-
-Ce module complémentaire est sous licence MIT. LibreChat est sous licence MIT également. 
+- Chat IA open-source avec interface web
+- Base de données MongoDB intégrée
+- Support RAG (Retrieval-Augmented Generation)
+- MeiliSearch pour la recherche de fichiers
+- Persistance complète des données et conversations 
